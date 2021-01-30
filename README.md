@@ -1,6 +1,11 @@
 # SmashGraph
 ### A Graph Theory approach to ranking Melee players
 
+## Prerequisites
+* Python 3.6
+* Igraph
+* Cairo or cairocffi (If you want to render the graph)
+
 ## Data
 The data for this project comes from [smashdata.gg](https://smashdata.gg/)
 
