@@ -52,8 +52,38 @@ def adjancency():
                 adjMatrix.loc[player,game[1]]+= game[0]
     adjMatrix.to_csv("out.csv")
 
+#Add new column? Nevermind the first line, can't drop column on sqlite
+#c.execute("ALTER TABLE sets DROP COLUMN loser_id")
+#c.execute("ALTER TABLE sets ADD loser_id text")
+c.execute("UPDATE sets SET loser_id= CASE WHEN winner_id=p1_id THEN p2_id ELSE p1_id END")
+#c.execute("ALTER TABLE sets ADD score_diff integer")
+c.execute("UPDATE sets SET score_diff= ABS(p1_score-p2_score)")
 
-adjancency()
+"""
+c.execute("SELECT * FROM sqlite_master")
+tables=c.fetchall()
+
+for i in tables:
+    print(i)
+    print("\n")
+
+"""
+#c.execute("SELECT player_id, player. FROM sets")
+#tt=c.fetchmany(size=50)
+#print(tt)
+
+
+
+c.execute("""SELECT p1.tag,p2.tag,COUNT(s.winner_id),SUM(s.score_diff)
+    FROM sets s
+    JOIN players p1 ON p1.player_id=s.winner_id 
+    JOIN players p2 ON p2.player_id=s.loser_id
+    WHERE s.winner_id='1004'
+    GROUP BY s.winner_id, s.loser_id""") 
+players=c.fetchmany(size=20) 
+print(players)
+
+#adjancency()
 
 c.close()
 conn.close()
