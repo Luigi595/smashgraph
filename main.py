@@ -22,21 +22,6 @@ for i in tables:
 #Direction goes to winner
 
 
-def adjancency():
-    count=0
-    adjMatrix= pd.DataFrame(np.zeros((len(players), len(players))), index=players, columns=players)
-    for player in players:
-        count+=1
-        if count%100==0: print(count)
-        c.execute("SELECT p1_score-p2_score, p1_id, p2_id FROM sets WHERE winner_id=?", (player))
-        temp=c.fetchall()
-        for game in temp:
-            if game[1]==player:
-                adjMatrix.loc[player,game[2]]+= game[0]
-            elif game[2]== player:
-                adjMatrix.loc[player,game[1]]+= game[0]
-    adjMatrix.to_csv("out.csv")
-
 #Add new column? Nevermind the first line, can't drop column on sqlite
 #c.execute("ALTER TABLE sets DROP COLUMN loser_id")
 #c.execute("ALTER TABLE sets ADD loser_id text")
@@ -52,17 +37,32 @@ c.execute("SELECT * FROM sets WHERE winner_id='1493' AND loser_id='1000'")
 players=c.fetchall()
 print(players)
 """
+c.execute("SELECT tag FROM players")
+players=np.unique(c.fetchall())
+print("There are %i unique players" %len(players))
 
+#How many times has player x beaten player y and game diff without dqs
 c.execute("""SELECT p1.tag,p2.tag,COUNT(s.winner_id),SUM(s.score_diff)
     FROM sets s
     JOIN players p1 ON p1.player_id=s.winner_id 
     JOIN players p2 ON p2.player_id=s.loser_id
     WHERE p1_score <> -1 AND p2_score <> -1
     GROUP BY s.winner_id, s.loser_id""") 
-players=c.fetchmany(size=20) 
-print(players)
+head2Head=c.fetchall()
+print("There are %i h2h records" %len(head2Head))
 
-#adjancency()
+
+#Adjacency Matrix
+def adjancency():
+    adjMatrix= pd.DataFrame(np.zeros((len(players), len(players))), index=players, columns=players)
+    for record in head2Head:
+        adjMatrix.at[record[0],record[1]]=record[2]
+    #Saving the matrix to disk is a ~2 GB endeavor
+    #adjMatrix.to_csv("out.csv")
+    return adjMatrix
+
+A=adjancency()
+
 
 c.close()
 conn.close()

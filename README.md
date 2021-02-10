@@ -20,3 +20,7 @@ The weight on each arc is determined by the following formula
 ## Methodology
 
 ## Results
+
+## Problems (Opportunities if you're feeling positive)
+
+Some of the tags in the database are duplicated, while a part of those belong to different people e.g. King, some of them don't e.g. Aniolas. I haven't found a way to scan and solve this problem for 4743 instances of duplicated tags.
