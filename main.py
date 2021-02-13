@@ -23,7 +23,7 @@ c.execute("""SELECT p1.tag,p2.tag
     JOIN players p1 ON p1.player_id=s.winner_id 
     JOIN players p2 ON p2.player_id=s.loser_id
     JOIN tournament_info t ON s.tournament_key=t.key
-    WHERE t.season=20""")
+    WHERE t.season=19""")
 temp=[x for y in c for x in y]
 players=np.unique(temp)
 print("There are %i unique players" %len(players))
@@ -35,7 +35,7 @@ c.execute("""SELECT p1.tag,p2.tag,COUNT(s.winner_id),SUM(s.score_diff)
     JOIN players p1 ON p1.player_id=s.winner_id 
     JOIN players p2 ON p2.player_id=s.loser_id
     JOIN tournament_info t ON s.tournament_key=t.key
-    WHERE p1_score <> -1 AND p2_score <> -1 AND t.season=20
+    WHERE p1_score <> -1 AND p2_score <> -1 AND t.season=19
     GROUP BY s.winner_id, s.loser_id""") 
 head2Head=c.fetchall()
 print("There are %i h2h records" %len(head2Head))
@@ -53,12 +53,12 @@ kOut=A.sum(axis=0)
 
 
 #alpha must be less than the inverse of the max eigenvalue
+#higher alpha means indirect wins count more
 #For Season 19, the max eigenvalue is 16.075
-#For season 20, it was 0, is it acyclic?
 print("Waiting on eigenvalues")
-#alpha=.8/max(np.linalg.eigvals(A))
-#print(alpha)
-alpha=.8/16.075
+alpha=.8/max(np.linalg.eigvals(A))
+print(alpha)
+#alpha=.8/16.075
 
 print("No more eigenvalues")
 
@@ -66,9 +66,9 @@ w= np.dot(np.linalg.inv(np.identity(len(players))-alpha*A),kIn)
 l= np.dot(np.linalg.inv(np.identity(len(players))-alpha*np.transpose(A)),kOut)
 
 s=w-l
-scores=pd.DataFrame(s, index=players,columns=["Score"])
 
-scores.sort_values(by="Score", ascending=False).to_csv("2020ranking.csv")
+scores=pd.DataFrame(s, index=players,columns=["Score"])
+scores.sort_values(by="Score", ascending=False).to_csv("2019ranking.csv")
 
 c.close()
 conn.close()
