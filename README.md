@@ -31,18 +31,18 @@ It is a straight implementation of the method descibed in Park, Juyong & Newman,
 
 ### Set based
 
-| Rank        | 2018           | 2019  |2020 (see shortcomings)|
-| ------------- |-------------| -----|-----|
-| 1 | Hungrybox | Hungrybox | Ginger |
-| 2 |  Plup  |  Mang0 | iBDW
-| 3 |  Leffen|  Zain |Zain
-| 4 |   Armada|  Axe | n0ne
-| 5 |   Zain|  Leffen | Hungrybox
-| 6 | Mang0  |  Wizzrobe | Mang0
-| 7 |   Mew2King|  aMSa | SFAT
-| 8 |   Wizzrobe| S2J | Plup
-| 9 |  aMSa | iBDW | lloD
-| 10 |  SFAT |   Plup  | Gahtzu
+| Rank        | 2018           | 2019  |2020 (see shortcomings)|2021|
+| ------------- |-------------| -----|-----|-----|
+| 1 | Hungrybox | Hungrybox | Ginger |Bobby big ballz |
+| 2 |  Plup  |  Mang0 | iBDW | Jsalt
+| 3 |  Leffen|  Zain |Zain | Pappi
+| 4 |   Armada|  Axe | n0ne | Ben
+| 5 |   Zain|  Leffen | Hungrybox | Ben
+| 6 | Mang0  |  Wizzrobe | Mang0 | Ginger
+| 7 |   Mew2King|  aMSa | SFAT | Jflex
+| 8 |   Wizzrobe| S2J | Plup | Aklo
+| 9 |  aMSa | iBDW | lloD | Gahtzu
+| 10 |  SFAT |   Plup  | Gahtzu | Hungrybox
 
 ### Game based
 
